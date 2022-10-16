@@ -8,6 +8,7 @@ module.exports = {
   MAIL_PORT: process.env.MAIL_PORT,
   MAIL_HOST: process.env.MAIL_HOST,
   Recipient: process.env.RECIPIENT,
+  Subject: process.env.SUBJECT,
   OPTIONS: {
     useNewUrlParser: true,
     useFindAndModify: true,

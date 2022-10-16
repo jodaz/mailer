@@ -1,29 +1,32 @@
 const Mail = require('../config/mail');
-const { Recipient } = require('../config');
+const { Recipient, Subject } = require('../config');
 
 const sendEmail = (req, res) => {
+  let { email, name, message } = req.body;
 
-  let { from, subject, message } = req.body;
-
-  // Mail to owner
-  Mail.sendMail({
-    to: Recipient,
-    from: from,
-    subject: 'Contact from website.',
-    text: subject 
-  });
-
-  // Mail to user
-  Mail.sendMail({
-    to: from,
-    subject: "Hi! I've received your email!",
-    text: 'Hello world'
-  });
-
-  res.status(200).json({
-    'success': true,
-    'message': '¡Message received!'
-  });
+  try {
+    // Mail to owner
+    Mail.sendMail({
+      to: Recipient,
+      from: name,
+      subject: Subject,
+      text: message 
+    });
+  
+    // Mail to user
+    Mail.sendMail({
+      to: email,
+      subject: Subject,
+      text: message
+    });
+  
+    res.status(200).json({
+      'success': true,
+      'message': '¡Message received!'
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = {
